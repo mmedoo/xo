@@ -1,14 +1,8 @@
 const rooms = [];
 const express = require('express');
-const bodyParser = require("body-parser");
-const cors = require("cors");
 const app = express();
 let clients = 0;
-app.use(express.urlencoded({ extended: true }));
-app.use(require("body-parser").json());
-app.use(cors());
 app.use(express.static('website'));
-app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/create',addRoom);
 function addRoom(req,res) {
   for (let i = 0; i < rooms.length; i++) {
