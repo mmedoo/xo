@@ -1,7 +1,7 @@
 {
-  "name": "weather-journal-app",
+  "name": "Tic-Tac-Toe",
   "version": "1.0.0",
-  "description": "## Overview This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI.",
+  "description": "Online Xo game",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
