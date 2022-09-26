@@ -54,9 +54,9 @@ function clientJoin(req,res) {
     if (rooms[i][0] == roomName) {
       clients++;
       let porto = rooms.length+'0'+clients+'0'+rooms[i].length-1+'';
-      let wss = new new require('ws').Server({port : porto});
+      let ws = new require("ws");
+      let wss = new ws.Server({port : porto});
       let moves = rooms[i][1];
-      res.send({porto,moves});
       wss.on("connection",(ws)=>{
         rooms[i].push(ws);
         ws.on("message",(data)=>{
@@ -73,6 +73,7 @@ function clientJoin(req,res) {
             rooms[i].splice(rooms[i].indexOf(ws),1);
           }
         })
+      res.send({porto,moves});
       })
       return;
     } else if (i == rooms.length-1){
