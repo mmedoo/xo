@@ -60,8 +60,8 @@ const getEnd = async (url = '',data = {})=>{
       try {
         const endPoint = await response.json();
         if (!endPoint) {
-          if (url == "/join") {
-            head.innerText = "fuck you no room with such a name! "+url;
+          if (url === "/join") {
+            head.innerText = "fuck you no room with such a name! ";
           } else {
             head.innerText = "This room name is taken";
           }
