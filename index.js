@@ -34,6 +34,7 @@ function addRoom(req,res) {
         rooms[index][i].send(JSON.stringify({0:n}));
       }
     });
+    res.send({porto});
     ws.on("close",()=>{
       if (room.length == 3) {
         rooms.splice(rooms.indexOf(room),1);
@@ -41,7 +42,6 @@ function addRoom(req,res) {
         room.splice(room.indexOf(this),1);
       }
     })
-  res.send({porto});
   })
 }
 app.post('/join',clientJoin)
