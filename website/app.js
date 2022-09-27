@@ -67,6 +67,7 @@ const getEnd = async (url = '',data = {})=>{
           }
           return;
         }
+        console.log(endPoint);
         let myNum = endPoint.porto;
         console.log(myNum);
         player = myNum[myNum.length-1];
