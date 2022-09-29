@@ -22,7 +22,7 @@ function addRoom(req,res) {
   let room = [req.body.room,moves];
   let porto = rooms.length+1+'0'+clients+'0'+1;
   let ws = new require('ws');
-  let wss = new ws.Server({ app });
+  let wss = new ws.Server({ server });
   res.send({porto});
   wss.on("connection",(ws)=>{
     room.push(ws);
