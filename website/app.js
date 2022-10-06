@@ -73,7 +73,7 @@ const getEnd = async (url = '',data = {})=>{
         player = myNum[myNum.length-1];
         let link = location.origin.replace(/^http/,'ws');
         //const ws = new WebSocket(link);
-        const ws = new WebSocket(link+":"+porto);
+        const ws = new WebSocket(link+":"+myNum);
         webSkts[0] = ws;
         ws.addEventListener("open",()=>{
           if (!sync) checkTurn(turn);
