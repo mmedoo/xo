@@ -4,7 +4,6 @@ const http = require('http');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-const httpServer = http.createServer(app);
 let clients = 0;
 app.use(express.urlencoded({ extended: true }));
 app.use(require("body-parser").json());
@@ -24,7 +23,8 @@ function addRoom(req,res) {
   let room = [req.body.room,moves];
   let porto = rooms.length+1+'0'+clients+'0'+1;
   let ws = new require('ws');
-  let wss = new ws.Server({ server:httpServer });
+  //let wss = new ws.Server({ server:httpServer });
+  let wss = new ws.Server({ port:porto });
   res.send({porto});
   wss.on("connection",(ws)=>{
     room.push(ws);
@@ -58,7 +58,8 @@ function clientJoin(req,res) {
       clients++;
       let porto = rooms.length+'0'+clients+'0'+rooms[i].length-1+'';
       let ws = new require("ws");
-      let wss = new ws.Server({server: httpServer});
+      //let wss = new ws.Server({server: httpServer});
+      let wss = new ws.Server({port: porto});
       let moves = rooms[i][1];
       res.send({porto,moves});
       wss.on("connection",(ws)=>{
@@ -84,4 +85,5 @@ function clientJoin(req,res) {
     }
   }
 }
+const httpServer = http.createServer(app);
 httpServer.listen(process.env.PORT || 3000);
