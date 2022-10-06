@@ -24,7 +24,7 @@ function addRoom(req,res) {
   let room = [req.body.room,moves];
   let porto = rooms.length+1+'0'+clients+'0'+1;
   let ws = new require('ws');
-  let wss = new ws.Server({ port:porto });
+  let wss = new ws.Server({ server:httpServer });
   res.send({porto});
   wss.on("connection",(ws)=>{
     room.push(ws);
@@ -58,7 +58,7 @@ function clientJoin(req,res) {
       clients++;
       let porto = rooms.length+'0'+clients+'0'+rooms[i].length-1+'';
       let ws = new require("ws");
-      let wss = new ws.Server({port : porto});
+      let wss = new ws.Server({server: httpServer});
       let moves = rooms[i][1];
       res.send({porto,moves});
       wss.on("connection",(ws)=>{
