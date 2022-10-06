@@ -71,8 +71,8 @@ const getEnd = async (url = '',data = {})=>{
         let myNum = endPoint.porto;
         console.log(myNum);
         player = myNum[myNum.length-1];
-        //let link = location.origin.replace(/^http/,'ws');
-        const ws = new WebSocket("wss://www.tictactoegam.herokuapp.com:"+myNum);
+        let link = location.origin.replace(/^http/,'ws');
+        const ws = new WebSocket(link);
         webSkts[0] = ws;
         ws.addEventListener("open",()=>{
           if (!sync) checkTurn(turn);
