@@ -22,10 +22,13 @@ function addRoom(req,res) {
   let moves = [];
   let room = [req.body.room,moves];
   let porto = rooms.length+1+'0'+clients+'0'+1;
-  //let httpServer = http.createServer(app);
   let ws = new require('ws');
-  //let wss = new ws.Server({ server:httpServer });
-  let wss = new ws.Server({ port:porto });
+  let wss = new ws.Server({ noServer: true });
+  httpServer.on('upgrade', function (request, socket, head) {
+    wss.handleUpgrade(request, socket, head, function (ws) {
+      wss.emit('connection', ws, request);
+    })
+  })
   res.send({porto});
   wss.on("connection",(ws)=>{
     room.push(ws);
@@ -58,10 +61,8 @@ function clientJoin(req,res) {
     if (rooms[i][0] == roomName) {
       clients++;
       let porto = rooms.length+'0'+clients+'0'+rooms[i].length-1+'';
-      //let httpServer = http.createServer(app);
       let ws = new require("ws");
-      //let wss = new ws.Server({server: httpServer});
-      let wss = new ws.Server({port: porto});
+      let wss = new ws.Server({noServer: true});
       let moves = rooms[i][1];
       res.send({porto,moves});
       wss.on("connection",(ws)=>{
@@ -87,4 +88,5 @@ function clientJoin(req,res) {
     }
   }
 }
-app.listen(process.env.PORT || 3000);
+const httpServer = http.createServer(app);
+httpServer.listen(process.env.PORT || 3000);
