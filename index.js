@@ -24,11 +24,18 @@ function addRoom(req,res) {
   let porto = rooms.length+1+'0'+clients+'0'+1;
   let ws = new require('ws');
   let wss = new ws.Server({ noServer: true });
+  function handle(){
+  if (once) {
+    return;
+  }
   httpServer.on('upgrade', function (request, socket, head) {
     wss.handleUpgrade(request, socket, head, function (ws) {
       wss.emit('connection', ws, request);
     })
   })
+  once = 1;
+  }
+  handle();
   res.send({porto});
   wss.on("connection",(ws)=>{
     room.push(ws);
